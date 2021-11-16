@@ -1,0 +1,13 @@
+{
+    "name": "test",
+    "type": "drupal-module",
+    "description": "My Awesome Module Test",
+    "keywords": [
+    ],
+    "homepage": "https://www.drupal.org/project/test",
+    "minimum-stability": "dev",
+    "support": {
+        "issues": "https://www.drupal.org/project/issues/test",
+        "source": "http://cgit.drupalcode.org/test",
+    },
+}
