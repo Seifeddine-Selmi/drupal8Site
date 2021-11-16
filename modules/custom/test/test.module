@@ -46,9 +46,9 @@ function test_preprocess_node(&$variables){
    var_dump($variables);
    echo '</pre>';
    die();*/
-    
+
     if($variables['node']->id() == 1){
-        $variables['content']['body'][0]['#text'] .= 'Text from new HOOK';
+        $variables['content']['body'][0]['#text'] .= 'Text from new HOOK and cache is disable';
     }
     
 }

@@ -793,19 +793,13 @@ $settings['migrate_node_migrate_type_classic'] = FALSE;
  */
 #
 
- if (file_exists($app_root . '/' . $site_path . '/settings.local.php')) {
-   include $app_root . '/' . $site_path . '/settings.local.php';
- }
+   if (file_exists($app_root . '/' . $site_path . '/settings.local.php') 
+    && ($_SERVER['HTTP_HOST'] == 'drupal8.local' || $_SERVER['HTTP_HOST'] == 'default' || is_null($_SERVER['HTTP_HOST']))) {
+        include $app_root . '/' . $site_path . '/settings.local.php';
+    }else if (file_exists($app_root . '/' . $site_path . '/settings.server.php')) {
+        include $app_root . '/' . $site_path . '/settings.server.php';
+    }
 
  
-$databases['default']['default'] = array (
-  'database' => 'drupal8site',
-  'username' => 'root',
-  'password' => '',
-  'prefix' => '',
-  'host' => '127.0.0.1',
-  'port' => '3306',
-  'namespace' => 'Drupal\\Core\\Database\\Driver\\mysql',
-  'driver' => 'mysql',
-);
+
 $settings['config_sync_directory'] = 'sites/default/files/config_cbzWeb9vFarhLllNNkL6bhYHXef7WKrFBFT40giNSkGjSki6h63_M_Zab-isLPzPaEY7CwwCtw/sync';
