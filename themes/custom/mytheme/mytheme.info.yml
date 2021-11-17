@@ -1,0 +1,13 @@
+name: Theme drupal 8
+type: theme
+description: 'This is a Drupal 8 custom theme'
+core: 8.x
+base theme: false
+
+regions: 
+  header: 'Header'
+  content: 'Content'
+  footer: 'Footer'
+  
+libraries:
+  - mytheme/custom 
