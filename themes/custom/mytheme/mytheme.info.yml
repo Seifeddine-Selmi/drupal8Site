@@ -11,3 +11,4 @@ regions:
   
 libraries:
   - mytheme/custom 
+  - mytheme/foundation

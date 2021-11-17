@@ -7,3 +7,17 @@ custom:
     js/app.js: {}
   dependencies:
      - core/jquery
+     
+foundation:
+  version: 6.7.4
+  css:
+    theme:
+      vendor/foundation/css/app.css: {}
+      vendor/foundation/css/foundation.min.css: {}
+  js:
+    vendor/foundation/js/vendor/foundation.js: {}
+    vendor/foundation/js/vendor/what-input.js: {}
+    vendor/foundation/js/app.js: {}
+  dependencies:
+     - core/jquery  
+    
