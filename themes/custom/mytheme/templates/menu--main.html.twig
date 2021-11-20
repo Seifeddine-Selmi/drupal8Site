@@ -38,26 +38,26 @@ Horizontal Bar navigation
  
  
  <div class='top-bar-a'>
-<nav class="top-bar show-for-medium row">
- 
-  {% if items %}
-{#     {% if menu_level == 0 %}#}
-{#       <ul{{ attributes }}>#}
-{#     {% else %}#}
-{#       <ul>#}
-{#     {% endif %}#}
-     <ul class="dropdown menu" data-dropdown-menu>
-    {% for item in items %}
-      <li{{ item.attributes }}>
-        {{ link(item.title, item.url) }}
-      
-{#         {% if item.below %}#}
-{#           {{ menus.menu_links(item.below, attributes, menu_level + 1) }}#}
-{#         {% endif %}#}
-      </li>
-    {% endfor %}
-    </ul>
-  {% endif %}
+    <nav class="top-bar show-for-medium row">
+     
+      {% if items %}
+    {#     {% if menu_level == 0 %}#}
+    {#       <ul{{ attributes }}>#}
+    {#     {% else %}#}
+    {#       <ul>#}
+    {#     {% endif %}#}
+         <ul class="dropdown menu menu-custom" data-dropdown-menu>
+        {% for item in items %}
+          <li{{ item.attributes }}>
+            {{ link(item.title, item.url) }}
+          
+    {#         {% if item.below %}#}
+    {#           {{ menus.menu_links(item.below, attributes, menu_level + 1) }}#}
+    {#         {% endif %}#}
+          </li>
+        {% endfor %}
+        </ul>
+      {% endif %}
     </nav>
    </div>
    

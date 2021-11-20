@@ -6,16 +6,19 @@
 }
 
 
+.logo_header{
+	padding-left: 10px !important;
+}
+
 .logo_header .logo{
 	width: 5%;
-	/*width: 115px;*/
 }
 
 .top-bar a.is-active, .off-canvas  a.is-active {
 	background-color:#382848;
 	padding-left:10px;
 	padding-right:10px;
-	margin-right:1px;
+	margin-right:3px;
 }
 
 .top-bar{
@@ -37,6 +40,9 @@
     font-weight:bold;
 }
 
+.menu-custom{
+	margin-left: 282px !important;
+}
 .off-canvas{
 	background-color:#5f61a2  !important;
 }

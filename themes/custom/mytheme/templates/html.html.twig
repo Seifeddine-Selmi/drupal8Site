@@ -35,16 +35,17 @@
   </head>
   <body{{ attributes }}>
    <div class="off-canvas-wrapper">
-    {#
-      Keyboard navigation/accessibility link to main content section in
-      page.html.twig.
-    #}
-    <a href="#main-content" class="visually-hidden focusable">
-      {{ 'Skip to main content'|t }}
-    </a>
-    {{ page_top }}
-    {{ page }}
-    {{ page_bottom }}
+        {#
+          Keyboard navigation/accessibility link to main content section in
+          page.html.twig.
+        #}
+        <a href="#main-content" class="visually-hidden focusable">
+          {{ 'Skip to main content'|t }}
+        </a>
+        {# Menu Admin #}
+        {{ page_top }}
+        {{ page }}
+        {{ page_bottom }}
      </div>
     <js-bottom-placeholder token="{{ placeholder_token }}">
   </body>
