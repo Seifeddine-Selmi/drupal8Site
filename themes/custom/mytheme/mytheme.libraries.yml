@@ -20,4 +20,16 @@ foundation:
     vendor/foundation/js/app.js: {}
   dependencies:
      - core/jquery  
+     
+     
+slick:
+  version: 1.8.1
+  css:
+    theme:
+      vendor/slick/slick.css: {}
+      vendor/slick/slick-theme.css: {}
+  js:
+    vendor/slick/slick.min.js: {}
+  dependencies:
+     - core/jquery  
     

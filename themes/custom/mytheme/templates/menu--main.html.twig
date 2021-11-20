@@ -27,12 +27,19 @@
   @see https://twig.symfony.com/doc/1.x/tags/macro.html
 #}
 
- <div class='custom-menu-main'>
 {{ menus.menu_links(items, attributes, 0) }}
 
 {% macro menu_links(items, attributes, menu_level) %}
+ {% import _self as menus %}
+ 
+ {#
+Horizontal Bar navigation
+#}
+ 
+ 
+ <div class='top-bar-a'>
 <nav class="top-bar show-for-medium row">
-  {% import _self as menus %}
+ 
   {% if items %}
 {#     {% if menu_level == 0 %}#}
 {#       <ul{{ attributes }}>#}
@@ -43,7 +50,7 @@
     {% for item in items %}
       <li{{ item.attributes }}>
         {{ link(item.title, item.url) }}
-        {# Sous menu #}
+      
 {#         {% if item.below %}#}
 {#           {{ menus.menu_links(item.below, attributes, menu_level + 1) }}#}
 {#         {% endif %}#}
@@ -52,6 +59,35 @@
     </ul>
   {% endif %}
     </nav>
+   </div>
+   
+{#
+Menu Off canvas
+#}
+
+<nav class="off-canvas position-left" id="offCanvas" data-off-canvas>
+
+    <!-- Close button -->
+    <button class="close-button" aria-label="Close menu" type="button" data-close>
+      <span aria-hidden="true">&times;</span>
+    </button>
+
+    <!-- Menu -->
+    {% if items %}
+    <ul class="vertical menu">
+    {% for item in items %}
+      <li{{ item.attributes }}>
+        {{ link(item.title, item.url) }}
+      </li>
+    {% endfor %}
+    </ul>
+     {% endif %}
+
+  </nav>
+  <div class="top-bar-a bar-off-canvas off-canvas-content hide-for-medium" data-off-canvas-content data-hide-for='medium'>
+     <button class="menu-icon" type="button" data-open="offCanvas"></button>
+      <span class="title-bar-title">Drupal 8</span>
+  </div>
 {% endmacro %}
 
-  </div>
+

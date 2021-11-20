@@ -1,3 +1,115 @@
-.logo_custom{
-	width: 5%;
+.logo_header{
+	border-top-color: #5f61a2;
+	border-top-style: solid;
+	border-top-width: thick;
+	padding-left:206px;
 }
+
+
+.logo_header .logo{
+	width: 5%;
+	/*width: 115px;*/
+}
+
+.top-bar a.is-active, .off-canvas  a.is-active {
+	background-color:#382848;
+	padding-left:10px;
+	padding-right:10px;
+	margin-right:1px;
+}
+
+.top-bar{
+	padding-top:0px !important;
+	padding-bottom:0px !important;
+}
+
+.top-bar li a{
+	padding-right:16px;
+	padding-left:1px;
+}
+
+.top-bar, .top-bar-a, .top-bar ul, .ofc-title{
+	background-color:#5f61a2  !important;
+}
+
+.top-bar ul li a, .off-canvas ul li a{
+	color:#FFFFFF;
+    font-weight:bold;
+}
+
+.off-canvas{
+	background-color:#5f61a2  !important;
+}
+
+.off-canvas-wrapper{
+	position: initial !important;
+}
+
+.position-left{
+	top: initial !important;
+}
+
+.bar-off-canvas{
+	height: 30px;
+	padding-top:2px;
+	padding-left:4px;
+}
+
+.close-button, .close-button.medium{
+	font-size:1.6em  !important;
+	line-height:0.8;
+}
+
+/* Carousel*/
+
+ul.single-item{
+	margin-left: 0rem !important;
+}
+
+.slick-prev{
+	left: 3px !important;
+	z-index: 3 !important;
+}
+
+.slick-next{
+	right: 3px !important;
+	z-index: 3 !important;
+}
+
+.slick-prev::before, .slick-next::before{
+	font-size: 40px !important;
+}
+
+.slick-prev, .slick-next{
+	width: 40px !important;
+	height: 40px !important;
+}
+
+.slick-list img{
+	width: 100% !important;
+	margin-bottom: -45px;
+}
+
+.slick-dots li button{
+	width: 40px !important;
+	height: 40px !important;
+}
+
+.slick-dots li button::before{
+font-size: 30px !important;
+}
+
+
+.carousel-title{
+	background-color: rgba(53,62,158, 0.5);
+	position:relative;
+	height: 45px !important;
+	margin-bottom: 15px;
+}	
+
+.carousel-title a{
+	color: #fefefe;
+	position:absolute;
+	padding-top:10px;
+	padding-left:10px;
+}	

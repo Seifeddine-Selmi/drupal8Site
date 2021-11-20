@@ -12,3 +12,4 @@ regions:
 libraries:
   - mytheme/custom 
   - mytheme/foundation
+  - mytheme/slick
