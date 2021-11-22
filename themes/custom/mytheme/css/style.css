@@ -151,3 +151,28 @@ ul.row li{
 .bloc_ads .text-right{
 	padding-right:6px;
 }
+
+/* Hide default message on Front page */
+.feed-icon{
+	display:none;
+}
+
+/* Footer */
+
+#footer{
+	background-color: #222222;
+	color: #ffffff;
+}	
+
+
+#footer li a {
+	color: #9d9d9d;
+}	
+
+#footer ul li {
+	margin-left: 40px;
+}
+
+#footer .row li {
+	margin-bottom: 5px;
+}		
