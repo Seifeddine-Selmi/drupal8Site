@@ -1,0 +1,5 @@
+<?php 
+function mytheme_preprocess_menu__main(&$variable){
+   $var = \Drupal::config('system.site');
+   $variable['title_web_site'] =  $var->get('name');
+}

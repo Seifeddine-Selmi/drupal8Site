@@ -27,9 +27,9 @@
   @see https://twig.symfony.com/doc/1.x/tags/macro.html
 #}
 
-{{ menus.menu_links(items, attributes, 0) }}
+{{ menus.menu_links(items, attributes, 0, title_web_site) }}
 
-{% macro menu_links(items, attributes, menu_level) %}
+{% macro menu_links(items, attributes, menu_level, title_web_site) %}
  {% import _self as menus %}
  
  {#
@@ -86,7 +86,7 @@ Menu Off canvas
   </nav>
   <div class="top-bar-a bar-off-canvas off-canvas-content hide-for-medium" data-off-canvas-content data-hide-for='medium'>
      <button class="menu-icon" type="button" data-open="offCanvas"></button>
-      <span class="title-bar-title">Drupal 8</span>
+      <span class="title-bar-title">{{title_web_site}}</span>
   </div>
 {% endmacro %}
 
