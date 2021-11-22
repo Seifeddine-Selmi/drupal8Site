@@ -119,3 +119,35 @@ font-size: 30px !important;
 	padding-top:10px;
 	padding-left:10px;
 }	
+
+
+/* Block Advertise or détail */
+
+
+ul.row img{
+	width:200px !important;
+	height:120px !important;
+}
+
+ul.row li{
+	list-style-type:none !important;
+	margin-bottom:20px;
+}
+
+.bloc_ads{
+	transition: box-shadow 200ms ease-out;
+	border: solid 4px #eeee;
+}
+
+
+.bloc_ads:hover{
+	box-shadow:0 0 3px #515151;
+}
+
+.bloc_ads a{
+	padding-left:1px;
+}
+
+.bloc_ads .text-right{
+	padding-right:6px;
+}
