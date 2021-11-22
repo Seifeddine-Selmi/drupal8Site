@@ -175,4 +175,10 @@ ul.row li{
 
 #footer .row li {
 	margin-bottom: 5px;
-}		
+}	
+
+
+/* Map Contact */	
+#map {
+	height: 500px;
+}

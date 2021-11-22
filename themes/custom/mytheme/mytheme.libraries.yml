@@ -30,6 +30,13 @@ slick:
       vendor/slick/slick-theme.css: {}
   js:
     vendor/slick/slick.min.js: {}
+    js/slick.js: {}
   dependencies:
      - core/jquery  
     
+    
+map:
+  version: VERSION
+  js: 
+    js/map.js: {}
+    //maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap: {type: external}
