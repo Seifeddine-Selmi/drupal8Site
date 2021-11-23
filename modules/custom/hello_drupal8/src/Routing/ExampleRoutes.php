@@ -41,6 +41,19 @@ class ExampleRoutes {
                 '_permission'  => 'access content',
             ]
             );
+        $routes['hi.contentparams'] = new Route(
+            // Path to attach this route to:
+            '/hi/{your_name}',
+            // Route defaults:
+            [
+                '_controller' => '\Drupal\hello_drupal8\Controller\SayHelloToDrupal8::hi_sir',
+                '_title' => 'Hello Drupal 8'
+            ],
+            // Route requirements:
+            [
+                '_permission'  => 'access content',
+            ]
+            );
         return $routes;
     }
     
