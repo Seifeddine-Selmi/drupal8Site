@@ -1,0 +1,24 @@
+hello_drupal8.content:
+  path: '/hi'
+  defaults:
+    _controller: '\Drupal\hello_drupal8\Controller\SayHelloToDrupal8::hi'
+    _title: 'Hello Drupal 8'
+  requirements:
+    _permission: 'access content'
+    
+    
+hello_drupal8.contentparam:
+  path: '/hi/{your_name}'
+  defaults:
+    _controller: '\Drupal\hello_drupal8\Controller\SayHelloToDrupal8::hi_sir'
+    _title: 'Hello Drupal 8'
+  requirements:
+    _permission: 'access content'
+    
+hello_drupal8.exemple:    
+  path: '/content' 
+  defaults: 
+    _controller: '\Drupal\hello_drupal8\Controller\ExampleController::content' 
+    _title: 'Hello World'
+  requirements: 
+    _permission: 'access content' 

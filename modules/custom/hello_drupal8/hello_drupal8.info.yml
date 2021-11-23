@@ -1,0 +1,4 @@
+name: Hello Drupal8 Module
+description: First module Drupal8.
+type: module
+core: 8.x

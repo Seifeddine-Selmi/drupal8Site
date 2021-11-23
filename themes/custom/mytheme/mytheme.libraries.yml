@@ -14,6 +14,9 @@ foundation:
     theme:
       vendor/foundation/css/app.css: {}
       vendor/foundation/css/foundation.min.css: {}
+      vendor/foundation/css/foundation-float.min.css: {}
+      vendor/foundation/css/foundation-prototype.min.css: {}
+      vendor/foundation/css/foundation-rtl.min.css: {}
   js:
     vendor/foundation/js/vendor/foundation.js: {}
     vendor/foundation/js/vendor/what-input.js: {}
