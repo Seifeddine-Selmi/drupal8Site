@@ -43,3 +43,15 @@ map:
   js: 
     js/map.js: {}
     //maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap: {type: external}
+    
+    
+formValidation:
+  version: 0.6.2
+  css:
+    theme:
+      vendor/formValidation/css/formValidation.min.css: {}
+
+  js:
+    vendor/formValidation/js/formValidation.min.js: {}
+  dependencies:
+     - core/jquery 

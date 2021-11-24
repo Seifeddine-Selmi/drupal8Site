@@ -13,3 +13,4 @@ libraries:
   - mytheme/custom 
   - mytheme/foundation
   - mytheme/slick
+  - mytheme/formValidation
