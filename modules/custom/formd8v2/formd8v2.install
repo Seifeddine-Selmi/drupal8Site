@@ -1,0 +1,53 @@
+<?php
+ function formd8v2_schema() {
+  $schema['profiles'] = [
+    'description' => 'The base table for forms.',
+    'fields' => [
+      'id' => [
+        'description' => 'The primary identifier for a form.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ],
+      'first_name' => [
+        'description' => 'The first name.',
+        'type' => 'varchar',
+        'length' => 128,
+        'not null' => TRUE,
+        'default' => '',
+      ],
+      'last_name' => [
+        'description' => 'The last name.',
+        'type' => 'varchar',
+        'length' => 128,
+        'not null' => TRUE,
+        'default' => '',
+      ],
+      'gender' => [
+        'description' => 'The gender name.',
+        'type' => 'varchar',
+        'length' => 128,
+        'not null' => TRUE,
+        'default' => '',
+      ],
+       'birth_date' => [
+        'description' => 'The birth date.',
+        'type' => 'int',
+        'length' => 128,
+        'not null' => TRUE,
+      ],
+       'email' => [
+        'description' => 'The email.',
+        'type' => 'varchar',
+        'length' => 128,
+        'not null' => TRUE,
+        'default' => '',
+      ],
+    ],
+    'primary key' => [
+      'id',
+    ],
+    
+  ];
+  return $schema;
+}
