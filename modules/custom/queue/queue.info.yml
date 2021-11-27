@@ -1,0 +1,4 @@
+name: Form Queue Unpublish Node
+description: Form Queue Unpublish Node
+type: module
+core: 8.x
