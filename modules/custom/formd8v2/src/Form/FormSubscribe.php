@@ -3,6 +3,7 @@ namespace Drupal\formd8v2\Form;
 
 use Drupal\Core\Form\FormBase;
 use \Drupal\Core\Form\FormStateInterface;
+use Drupal\file\Entity\File;
 
 class FormSubscribe extends FormBase{
     
@@ -76,6 +77,13 @@ class FormSubscribe extends FormBase{
             '#title' => $this->t('Email'),
         );
         
+        /* managed_file to save images in table file_managed*/
+        $form['picture'] = array(
+            '#type' => 'managed_file',
+            '#title' => $this->t('Upload picture'),
+            '#upload_location' => 'public://images/',
+        );
+        
         $form['submit'] = array(
             '#type' => 'submit',
             '#value' => $this->t('Save'),
@@ -110,14 +118,24 @@ class FormSubscribe extends FormBase{
      */
     public function submitForm(array &$form, FormStateInterface $form_state){
 
-        
+        $picture = $form_state->getValue('picture');
+        $file = File::load($picture[0]);  //$picture[0] id generate by drupal
         $profile_value = array(
             'first_name' => $form_state->getValue('first_name'),
             'last_name' => $form_state->getValue('last_name'),
             'gender' => $form_state->getValue('gender'),
             'birth_date' => strtotime($form_state->getValue('birth_date')),
-            'email' => $form_state->getValue('email')
+            'email' => $form_state->getValue('email'),
+            'fid' => $picture[0],
+  
         );
+        
+        $file->setPermanent();
+        $file->save();   
+        /*SELECT * FROM drupal8site.file_managed order by fid desc;*/
+        
+        
+        
         
         $query = \Drupal::database();
         $query->insert('profiles')

@@ -1,4 +1,9 @@
 <?php
+
+
+
+Use Drupal\Core\Database\Database;
+/* hook_schema() to create profiles table in database */
  function formd8v2_schema() {
   $schema['profiles'] = [
     'description' => 'The base table for forms.',
@@ -50,4 +55,21 @@
     
   ];
   return $schema;
+}
+
+/* hook_update  with id 8001 to add column fid*/
+function formd8v2_update_8001() {
+
+  $column = array(
+        'description' => 'fid',
+        'type' => 'int',
+        'length' => 128,
+        'not null' => FALSE,
+  );
+  
+  $schema = Database::getConnection()->schema();
+  $schema->addField('profiles', 'fid', $column);
+  
+/* drush updb  */
+
 }
