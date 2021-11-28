@@ -1,0 +1,7 @@
+# To display Profile Entity in admin structure
+profile.collection:
+  route_name: entity.profile.collection
+  title: 'Profile Entity'
+  description: 'Create Profile Entity Type'
+  weight: 10
+  parent: system.admin_structure

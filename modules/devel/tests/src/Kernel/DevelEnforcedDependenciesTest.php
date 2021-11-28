@@ -36,7 +36,7 @@ class DevelEnforcedDependenciesTest extends KernelTestBase {
    * Tests devel menu enforced dependencies.
    */
   public function testMenuEnforcedDependencies() {
-    /* @var \Drupal\Core\Config\ConfigManagerInterface $config_manager */
+    /** @var \Drupal\Core\Config\ConfigManagerInterface $config_manager */
     $config_manager = $this->container->get('config.manager');
 
     // Ensure that the Devel menu has explicit enforced dependencies on devel
@@ -54,15 +54,15 @@ class DevelEnforcedDependenciesTest extends KernelTestBase {
       'id' => $block_id,
       'theme' => $this->config('system.theme')->get('default'),
       'label' => $this->randomMachineName(8),
-      'visibility' => [],
+      'visibility' => array(),
       'weight' => 0,
     ]);
     $block->save();
 
     // Ensure that the menu and block instance depend on devel module.
     $dependents = $config_manager->findConfigEntityDependents('module', ['devel']);
-    $this->assertArrayHasKey('system.menu.devel', $dependents);
-    $this->assertArrayHasKey('block.block.' . $block_id, $dependents);
+    $this->assertTrue(isset($dependents['system.menu.devel']));
+    $this->assertTrue(isset($dependents['block.block.' . $block_id]));
 
     $this->container->get('module_installer')->uninstall(['devel']);
 
@@ -73,8 +73,8 @@ class DevelEnforcedDependenciesTest extends KernelTestBase {
 
     // Ensure that no config entities depend on devel once uninstalled.
     $dependents = $config_manager->findConfigEntityDependents('module', ['devel']);
-    $this->assertArrayNotHasKey('system.menu.devel', $dependents);
-    $this->assertArrayNotHasKey('block.block.' . $block_id, $dependents);
+    $this->assertFalse(isset($dependents['system.menu.devel']));
+    $this->assertFalse(isset($dependents['block.block.' . $block_id]));
   }
 
 }

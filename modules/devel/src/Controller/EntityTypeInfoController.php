@@ -4,7 +4,6 @@ namespace Drupal\devel\Controller;
 
 use Drupal\Component\Serialization\Json;
 use Drupal\Core\Controller\ControllerBase;
-use Drupal\Core\Entity\EntityLastInstalledSchemaRepositoryInterface;
 use Drupal\Core\Url;
 use Drupal\devel\DevelDumperManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -23,21 +22,13 @@ class EntityTypeInfoController extends ControllerBase {
   protected $dumper;
 
   /**
-   * The installed entity definition repository service.
-   *
-   * @var \Drupal\Core\Entity\EntityLastInstalledSchemaRepositoryInterface
-   */
-  protected $entityLastInstalledSchemaRepository;
-
-  /**
    * EntityTypeInfoController constructor.
    *
    * @param \Drupal\devel\DevelDumperManagerInterface $dumper
    *   The dumper service.
    */
-  public function __construct(DevelDumperManagerInterface $dumper, EntityLastInstalledSchemaRepositoryInterface $entityLastInstalledSchemaRepository) {
+  public function __construct(DevelDumperManagerInterface $dumper) {
     $this->dumper = $dumper;
-    $this->entityLastInstalledSchemaRepository = $entityLastInstalledSchemaRepository;
   }
 
   /**
@@ -45,8 +36,7 @@ class EntityTypeInfoController extends ControllerBase {
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('devel.dumper'),
-      $container->get('entity.last_installed_schema.repository')
+      $container->get('devel.dumper')
     );
   }
 
@@ -70,19 +60,19 @@ class EntityTypeInfoController extends ControllerBase {
     foreach ($this->entityTypeManager()->getDefinitions() as $entity_type_id => $entity_type) {
       $row['id'] = [
         'data' => $entity_type->id(),
-        'filter' => TRUE,
+        'class' => 'table-filter-text-source',
       ];
       $row['name'] = [
         'data' => $entity_type->getLabel(),
-        'filter' => TRUE,
+        'class' => 'table-filter-text-source',
       ];
       $row['provider'] = [
         'data' => $entity_type->getProvider(),
-        'filter' => TRUE,
+        'class' => 'table-filter-text-source',
       ];
       $row['class'] = [
         'data' => $entity_type->getClass(),
-        'filter' => TRUE,
+        'class' => 'table-filter-text-source',
       ];
       $row['operations']['data'] = [
         '#type' => 'operations',
@@ -90,18 +80,6 @@ class EntityTypeInfoController extends ControllerBase {
           'devel' => [
             'title' => $this->t('Devel'),
             'url' => Url::fromRoute('devel.entity_info_page.detail', ['entity_type_id' => $entity_type_id]),
-            'attributes' => [
-              'class' => ['use-ajax'],
-              'data-dialog-type' => 'modal',
-              'data-dialog-options' => Json::encode([
-                'width' => 700,
-                'minHeight' => 500,
-              ]),
-            ],
-          ],
-          'fields' => [
-            'title' => $this->t('Fields'),
-            'url' => Url::fromRoute('devel.entity_info_page.fields', ['entity_type_id' => $entity_type_id]),
             'attributes' => [
               'class' => ['use-ajax'],
               'data-dialog-type' => 'modal',
@@ -119,17 +97,34 @@ class EntityTypeInfoController extends ControllerBase {
 
     ksort($rows);
 
+    $output['#attached']['library'][] = 'system/drupal.system.modules';
+
+    $output['filters'] = [
+      '#type' => 'container',
+      '#attributes' => [
+        'class' => ['table-filter', 'js-show'],
+      ],
+    ];
+    $output['filters']['text'] = [
+      '#type' => 'search',
+      '#title' => $this->t('Search'),
+      '#size' => 30,
+      '#placeholder' => $this->t('Enter entity type id, provider or class'),
+      '#attributes' => [
+        'class' => ['table-filter-text'],
+        'data-table' => '.devel-filter-text',
+        'autocomplete' => 'off',
+        'title' => $this->t('Enter a part of the entity type id, provider or class to filter by.'),
+      ],
+    ];
     $output['entities'] = [
-      '#type' => 'devel_table_filter',
-      '#filter_label' => $this->t('Search'),
-      '#filter_placeholder' => $this->t('Enter entity type id, provider or class'),
-      '#filter_description' => $this->t('Enter a part of the entity type id, provider or class to filter by.'),
+      '#type' => 'table',
       '#header' => $headers,
       '#rows' => $rows,
       '#empty' => $this->t('No entity types found.'),
       '#sticky' => TRUE,
       '#attributes' => [
-        'class' => ['devel-entity-type-list'],
+        'class' => ['devel-entity-type-list', 'devel-filter-text'],
       ],
     ];
 
@@ -154,27 +149,6 @@ class EntityTypeInfoController extends ControllerBase {
     }
 
     return $this->dumper->exportAsRenderable($entity_type, $entity_type_id);
-  }
-
-  /**
-   * Returns a render array representation of the entity type field definitions.
-   *
-   * @param string $entity_type_id
-   *   The name of the entity type to retrieve.
-   *
-   * @return array
-   *   A render array containing the entity type field definitions.
-   *
-   * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
-   *   If the requested entity type is not defined.
-   */
-  public function entityTypeFields($entity_type_id) {
-    if (!$this->entityTypeManager()->getDefinition($entity_type_id, FALSE)) {
-      throw new NotFoundHttpException();
-    }
-
-    $field_storage_definitions = $this->entityLastInstalledSchemaRepository->getLastInstalledFieldStorageDefinitions($entity_type_id);
-    return $this->dumper->exportAsRenderable($field_storage_definitions, $entity_type_id);
   }
 
 }

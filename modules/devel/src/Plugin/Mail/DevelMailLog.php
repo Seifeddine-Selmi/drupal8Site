@@ -2,10 +2,8 @@
 
 namespace Drupal\devel\Plugin\Mail;
 
-use Drupal\Component\FileSecurity\FileSecurity;
 use Drupal\Component\Utility\Unicode;
 use Drupal\Core\Config\ConfigFactoryInterface;
-use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\Mail\MailFormatHelper;
 use Drupal\Core\Mail\MailInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
@@ -22,14 +20,13 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * @endcode
  *
  * By default the mails are saved in 'temporary://devel-mails'. This setting
- * can be changed using 'debug_mail_directory' config setting. For example:
+ * can be changed using 'debug_mail_directory' config setting. For example,
  * @code
  * $config['devel.settings']['debug_mail_directory'] = 'temporary://my-directory';
  * @endcode
  *
  * The default filename pattern used is '%to-%subject-%datetime.mail.txt'. This
- * setting can be changed using 'debug_mail_directory' config setting.
- * For example:
+ * setting can be changed using 'debug_mail_directory' config setting. For example,
  * @code
  * $config['devel.settings']['debug_mail_file_format'] = 'devel-mail-%to-%subject-%datetime.mail.txt';
  * @endcode
@@ -50,16 +47,9 @@ class DevelMailLog implements MailInterface, ContainerFactoryPluginInterface {
   /**
    * The devel.settings config object.
    *
-   * @var \Drupal\Core\Config\Config
+   * @var \Drupal\Core\Config\Config;
    */
   protected $config;
-
-  /**
-   * The file system service.
-   *
-   * @var \Drupal\Core\File\FileSystemInterface
-   */
-  protected $fileSystem;
 
   /**
    * Constructs a new DevelMailLog object.
@@ -72,12 +62,9 @@ class DevelMailLog implements MailInterface, ContainerFactoryPluginInterface {
    *   The plugin implementation definition.
    * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
    *   The config factory service.
-   * @param \Drupal\Core\File\FileSystemInterface $file_system
-   *   The file system service.
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, ConfigFactoryInterface $config_factory, FileSystemInterface $file_system) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, ConfigFactoryInterface $config_factory) {
     $this->config = $config_factory->get('devel.settings');
-    $this->fileSystem = $file_system;
   }
 
   /**
@@ -88,8 +75,7 @@ class DevelMailLog implements MailInterface, ContainerFactoryPluginInterface {
       $configuration,
       $plugin_id,
       $plugin_definition,
-      $container->get('config.factory'),
-      $container->get('file_system')
+      $container->get('config.factory')
     );
   }
 
@@ -134,7 +120,7 @@ class DevelMailLog implements MailInterface, ContainerFactoryPluginInterface {
    * @return string
    *   The output message.
    */
-  protected function composeMessage(array $message) {
+  protected function composeMessage($message) {
     $mimeheaders = [];
     $message['headers']['To'] = $message['to'];
     foreach ($message['headers'] as $name => $value) {
@@ -142,7 +128,7 @@ class DevelMailLog implements MailInterface, ContainerFactoryPluginInterface {
     }
 
     $line_endings = Settings::get('mail_line_endings', PHP_EOL);
-    $output = implode($line_endings, $mimeheaders) . $line_endings;
+    $output = join($line_endings, $mimeheaders) . $line_endings;
     // 'Subject:' is a mail header and should not be translated.
     $output .= 'Subject: ' . $message['subject'] . $line_endings;
     // Blank line to separate headers from body.
@@ -154,7 +140,7 @@ class DevelMailLog implements MailInterface, ContainerFactoryPluginInterface {
   /**
    * Replaces placeholders with sanitized values in a string.
    *
-   * @param string $filename
+   * @param $filename
    *   The string that contains the placeholders. The following placeholders
    *   are considered in the replacement:
    *   - %to: replaced by the email recipient value.
@@ -166,7 +152,7 @@ class DevelMailLog implements MailInterface, ContainerFactoryPluginInterface {
    * @return string
    *   The formatted string.
    */
-  protected function replacePlaceholders($filename, array $message) {
+  protected function replacePlaceholders($filename, $message) {
     $tokens = [
       '%to' => $message['to'],
       '%subject' => $message['subject'],
@@ -178,11 +164,10 @@ class DevelMailLog implements MailInterface, ContainerFactoryPluginInterface {
 
   /**
    * Checks that the directory exists and is writable.
-   *
    * Public directories will be protected by adding an .htaccess which
    * indicates that the directory is private.
    *
-   * @param string $directory
+   * @param $directory
    *   A string reference containing the name of a directory path or URI.
    *
    * @return bool
@@ -190,11 +175,11 @@ class DevelMailLog implements MailInterface, ContainerFactoryPluginInterface {
    *   protected (if it is public). FALSE otherwise.
    */
   protected function prepareDirectory($directory) {
-    if (!$this->fileSystem->prepareDirectory($directory, FileSystemInterface::CREATE_DIRECTORY)) {
+    if (!file_prepare_directory($directory, FILE_CREATE_DIRECTORY)) {
       return FALSE;
     }
     if (0 === strpos($directory, 'public://')) {
-      return FileSecurity::writeHtaccess($directory);
+      return file_save_htaccess($directory);
     }
 
     return TRUE;

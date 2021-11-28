@@ -24,7 +24,8 @@ use Drupal\Core\StringTranslation\TranslatableMarkup;
  *     "form" = {
  *       "default" = "Drupal\profile\Form\ProfileEntityForm",
  *       "add" = "Drupal\profile\Form\ProfileEntityForm",
- *       "edit" = "Drupal\profile\Form\ProfileEntityForm"
+ *       "edit" = "Drupal\profile\Form\ProfileEntityForm",
+ *       "delete" = "Drupal\profile\Form\ProfileEntityDeleteForm",
  *     },
  *   },
  *   admin_permission = "administer",
@@ -34,13 +35,15 @@ use Drupal\Core\StringTranslation\TranslatableMarkup;
  *   entity_keys = {
  *     "id" = "profile_id",
  *     "langcode" = "langcode",
- *     "uuid" = "uuid"
+ *     "uuid" = "uuid",
+ *     "label" = "first_name",
  *   },
  *   links = {
  *      "add-form" = "/profile/add",
- *     "canonical" = "/profile/{profile}",
- *     "edit-form" = "/profile/{profile}/edit",
- *     "collection" = "/admin/profile",
+ *      "canonical" = "/profile/{profile}",
+ *      "edit-form" = "/profile/{profile}/edit",
+ *      "delete-form" = "/admin/profile/{profile}/delete",
+ *      "collection" = "/admin/profile",
  *   },
  * )
  */
@@ -90,8 +93,8 @@ class Profile extends ContentEntityBase implements ProfileInterface {
             ->setDescription(t('The gender of the Profile entity.'))
             ->setSettings(array(
                 'allowed_values' => array(
-                    'female' => 'female',
-                    'male' => 'male',
+                    'female' => 'Female',
+                    'male' => 'Male',
                 ),
             ))
             ->setDisplayOptions('view', array(

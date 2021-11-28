@@ -7,7 +7,7 @@ use GuzzleHttp\TransferStats;
 use Psr\Http\Message\RequestInterface;
 
 /**
- * Class HttpClientMiddleware.
+ * Class HttpClientMiddleware
  */
 class HttpClientMiddleware {
 
@@ -36,18 +36,8 @@ class HttpClientMiddleware {
     return function ($handler) {
       return function (RequestInterface $request, array $options) use ($handler) {
 
-        // If on_stats callback is already set then save it
-        // and call it after ours.
-        if (isset($options['on_stats'])) {
-          $next = $options['on_stats'];
-        }
-        else {
-          $next = function (TransferStats $stats) {};
-        }
-
-        $options['on_stats'] = function (TransferStats $stats) use ($request, $next) {
+        $options['on_stats'] = function (TransferStats $stats) use ($request) {
           $request->stats = $stats;
-          $next($stats);
         };
 
         return $handler($request, $options)->then(
@@ -63,7 +53,7 @@ class HttpClientMiddleware {
           function ($reason) use ($request) {
             $response = $reason instanceof RequestException
               ? $reason->getResponse()
-              : NULL;
+              : null;
 
             $this->failedRequests[] = [
               'request' => $request,
@@ -91,5 +81,4 @@ class HttpClientMiddleware {
   public function getFailedRequests() {
     return $this->failedRequests;
   }
-
 }

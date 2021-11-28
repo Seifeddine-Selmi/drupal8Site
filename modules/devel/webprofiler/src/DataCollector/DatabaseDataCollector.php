@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\DataCollector\DataCollector;
 
 /**
- * Class DatabaseDataCollector.
+ * Class DatabaseDataCollector
  */
 class DatabaseDataCollector extends DataCollector implements DrupalDataCollectorInterface {
 
@@ -43,17 +43,8 @@ class DatabaseDataCollector extends DataCollector implements DrupalDataCollector
   public function collect(Request $request, Response $response, \Exception $exception = NULL) {
     $connections = [];
     foreach (Database::getAllConnectionInfo() as $key => $info) {
-      try {
-        $database = Database::getConnection('default', $key);
-
-        if ($database->getLogger()) {
-          $connections[$key] = $database->getLogger()->get('webprofiler');
-        }
-      }
-      catch (\Exception $e) {
-        // There was some error during database connection, maybe a stale
-        // configuration in settings.php or wrong values used for a migration.
-      }
+      $database = Database::getConnection('default', $key);
+      $connections[$key] = $database->getLogger()->get('webprofiler');
     }
 
     $this->data['connections'] = array_keys($connections);
@@ -262,5 +253,4 @@ class DatabaseDataCollector extends DataCollector implements DrupalDataCollector
     }
     return ($at < $bt) ? 1 : -1;
   }
-
 }
