@@ -161,10 +161,6 @@ class Profile extends ContentEntityBase implements ProfileInterface {
                 'type' => 'string',
                 'weight' => -5,
             ))
-            ->setDisplayOptions('form', array(
-                'type' => 'string_textfield',
-                'weight' => -5,
-            ))
             ->setDisplayConfigurable('form', TRUE)
             ->setDisplayConfigurable('view', TRUE);
   
